@@ -7,8 +7,8 @@ One deck = one plan (a trip, a guys' weekend, an event). Swipe between cards, sc
 ## Use it
 
 - **All decks:** `https://<user>.github.io/jaunt/`
-- **A deck:** `https://<user>.github.io/jaunt/?p=<slug>`
-- **Sample:** `?p=sample-chicago`
+- **A deck (share this — it unfurls):** `https://<user>.github.io/jaunt/p/<slug>/`
+- **Sample:** `p/sample-chicago/`  (or `?p=sample-chicago` for a quick preview)
 
 ## Make a new deck
 
@@ -18,7 +18,7 @@ This repo is built to be driven by Claude Code. Open it and say:
 
 Claude checks the plan for gaps/contradictions, finds a map link + image for every place, and writes a `data/<slug>.json` file. See [`CLAUDE.md`](./CLAUDE.md) for the data schema and workflow.
 
-To do it by hand: copy `data/sample-chicago.json`, edit it, and add an entry to `data/index.json`.
+To do it by hand: copy `data/sample-chicago.json`, edit it, add an entry to `data/index.json`, then run `node tools/build-stubs.mjs` to regenerate the shareable `p/<slug>/` pages.
 
 ## Develop locally
 

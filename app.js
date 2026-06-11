@@ -4,7 +4,9 @@
 
   var app = document.getElementById("app");
   var params = new URLSearchParams(location.search);
-  var slug = params.get("p");
+  // slug + base come from a per-deck stub (window.JAUNT_*) or the ?p= query on the root page.
+  var slug = window.JAUNT_SLUG || params.get("p");
+  var base = window.JAUNT_BASE || "";
 
   function esc(s) {
     return String(s == null ? "" : s)
@@ -22,7 +24,7 @@
   if (!slug) {
     renderLanding();
   } else {
-    fetch("data/" + encodeURIComponent(slug) + ".json", { cache: "no-cache" })
+    fetch(base + "data/" + encodeURIComponent(slug) + ".json", { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(renderDeck)
       .catch(function () { fail("Couldn't load this Jaunt (“" + slug + "”)."); });
@@ -30,14 +32,14 @@
 
   /* ---------------- Landing ---------------- */
   function renderLanding() {
-    fetch("data/index.json", { cache: "no-cache" })
+    fetch(base + "data/index.json", { cache: "no-cache" })
       .then(function (r) { return r.ok ? r.json() : { decks: [] }; })
       .catch(function () { return { decks: [] }; })
       .then(function (data) {
         var decks = (data && data.decks) || [];
         var items = decks.map(function (d) {
           return (
-            '<a class="deck-card" href="?p=' + encodeURIComponent(d.slug) + '">' +
+            '<a class="deck-card" href="' + base + 'p/' + encodeURIComponent(d.slug) + '/">' +
             (d.cover ? '<img src="' + esc(d.cover) + '" alt="" loading="lazy" />' : "") +
             '<div><div class="dc-title">' + esc(d.title || d.slug) + "</div>" +
             (d.subtitle ? '<div class="dc-sub">' + esc(d.subtitle) + "</div>" : "") +

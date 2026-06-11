@@ -1,4 +1,4 @@
-/* Jaunt — itineraries as swipeable cards. Zero dependencies. */
+/* Jaunt — itineraries as swipeable cards. "Boarding Pass" renderer. Zero dependencies. */
 (function () {
   "use strict";
 
@@ -17,9 +17,8 @@
     t.innerHTML = html.trim();
     return t.content.firstChild;
   }
-  function fail(msg) {
-    app.innerHTML = '<div class="error">' + esc(msg) + "</div>";
-  }
+  function pad(n) { return ("0" + n).slice(-2); }
+  function fail(msg) { app.innerHTML = '<div class="error">' + esc(msg) + "</div>"; }
 
   if (!slug) {
     renderLanding();
@@ -27,7 +26,7 @@
     fetch(base + "data/" + encodeURIComponent(slug) + ".json", { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(renderDeck)
-      .catch(function () { fail("Couldn't load this Jaunt (“" + slug + "”)."); });
+      .catch(function () { fail("Couldn’t load this Jaunt (“" + slug + "”)."); });
   }
 
   /* ---------------- Landing ---------------- */
@@ -40,42 +39,51 @@
         var items = decks.map(function (d) {
           return (
             '<a class="deck-card" href="' + base + 'p/' + encodeURIComponent(d.slug) + '/">' +
-            (d.cover ? '<img src="' + esc(d.cover) + '" alt="" loading="lazy" />' : "") +
-            '<div><div class="dc-title">' + esc(d.title || d.slug) + "</div>" +
-            (d.subtitle ? '<div class="dc-sub">' + esc(d.subtitle) + "</div>" : "") +
-            "</div></a>"
+            '<span class="dc-thumb">' + (d.cover ? '<img src="' + esc(d.cover) + '" alt="" loading="lazy" />' : "") + "</span>" +
+            '<span class="dc-meta"><span class="dc-title">' + esc(d.title || d.slug) + "</span>" +
+            (d.subtitle ? '<span class="dc-sub">' + esc(d.subtitle) + "</span>" : "") + "</span>" +
+            '<span class="dc-go">VIEW →</span>' +
+            "</a>"
           );
         }).join("");
         app.innerHTML =
-          '<div class="landing"><h1>Jaunt ✈️</h1>' +
-          '<p class="tag">Itineraries as swipeable cards.</p>' +
+          '<div class="landing">' +
+          '<div class="lhead"><span class="mark">✈</span><h1>Jaunt</h1></div>' +
+          '<p class="tag">Itineraries as swipeable cards</p>' +
           '<div class="deck-list">' + (items || '<p class="tag">No Jaunts yet.</p>') + "</div></div>";
       });
   }
 
   /* ---------------- Deck ---------------- */
   function renderDeck(data) {
-    if (data.theme && data.theme.accent) {
-      document.documentElement.style.setProperty("--accent", data.theme.accent);
-    }
-    if (data.theme && data.theme.bg) {
-      document.documentElement.style.setProperty("--bg", data.theme.bg);
-    }
+    if (data.theme && data.theme.accent) document.documentElement.style.setProperty("--accent", data.theme.accent);
+    if (data.theme && data.theme.bg) document.documentElement.style.setProperty("--bg", data.theme.bg);
     if (data.title) document.title = data.title + " · Jaunt";
 
     var cards = data.cards || [];
+    var stopTotal = cards.filter(function (c) { return c.type !== "cover"; }).length;
     app.innerHTML = "";
 
     var progress = el('<div class="progress"></div>');
     cards.forEach(function () { progress.appendChild(el('<div class="seg"></div>')); });
     app.appendChild(progress);
-    app.appendChild(el('<div class="deck-title">' + esc(data.title || "") + "</div>"));
+
+    var topbar = el(
+      '<div class="topbar"><span class="brand">✈ <b>JAUNT</b></span>' +
+      '<span class="count">' + pad(1) + " / " + pad(cards.length) + "</span></div>"
+    );
+    app.appendChild(topbar);
+    var countEl = topbar.querySelector(".count");
 
     var deck = el('<div class="deck"></div>');
-    cards.forEach(function (c, i) { deck.appendChild(buildCard(c, i, cards.length)); });
+    var stopNo = 0;
+    cards.forEach(function (c, i) {
+      var meta = { isCover: c.type === "cover", stopTotal: stopTotal };
+      if (!meta.isCover) { stopNo += 1; meta.stopNo = stopNo; }
+      deck.appendChild(buildCard(c, i, meta));
+    });
     app.appendChild(deck);
 
-    // tap zones for prev/next
     var left = el('<div class="tapzone left"></div>');
     var right = el('<div class="tapzone right"></div>');
     left.addEventListener("click", function () { go(-1); });
@@ -83,17 +91,16 @@
     app.appendChild(left);
     app.appendChild(right);
 
-    var hint = el('<div class="nav-hint">Tap or swipe → · scroll ↓ for more</div>');
+    var hint = el('<div class="nav-hint">tap or swipe → · scroll ↓ for more</div>');
     app.appendChild(hint);
-    setTimeout(function () { hint.style.opacity = "0"; }, 3200);
+    setTimeout(function () { hint.style.opacity = "0"; }, 3400);
 
     var current = 0;
     function setActive(i) {
       current = i;
       var segs = progress.children;
-      for (var k = 0; k < segs.length; k++) {
-        segs[k].classList.toggle("active", k <= i);
-      }
+      for (var k = 0; k < segs.length; k++) segs[k].classList.toggle("on", k <= i);
+      countEl.textContent = pad(i + 1) + " / " + pad(cards.length);
     }
     function go(dir) {
       var next = Math.max(0, Math.min(cards.length - 1, current + dir));
@@ -101,48 +108,72 @@
     }
     setActive(0);
 
-    // keep progress synced with scroll position
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting && e.intersectionRatio > 0.6) {
-          setActive(Number(e.target.dataset.idx));
-        }
+        if (e.isIntersecting && e.intersectionRatio > 0.6) setActive(Number(e.target.dataset.idx));
       });
     }, { root: deck, threshold: [0.61] });
     Array.prototype.forEach.call(deck.children, function (c) { io.observe(c); });
 
-    // keyboard nav (desktop)
     document.addEventListener("keydown", function (e) {
       if (e.key === "ArrowRight") go(1);
       else if (e.key === "ArrowLeft") go(-1);
     });
+
+    // soft parallax: nudge each hero image as the deck scrolls
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) {
+      var ticking = false;
+      function parallax() {
+        var w = deck.clientWidth || 1;
+        var sx = deck.scrollLeft;
+        Array.prototype.forEach.call(deck.children, function (card, i) {
+          var img = card.querySelector(".photo img");
+          if (!img) return;
+          var off = Math.max(-1, Math.min(1, (sx - i * w) / w));
+          img.style.transform = "scale(1.08) translateX(" + (off * -5).toFixed(2) + "%)";
+        });
+      }
+      deck.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { parallax(); ticking = false; });
+      }, { passive: true });
+      parallax();
+    }
   }
 
-  function buildCard(c, idx, total) {
-    var card = el('<section class="card ' + (c.type === "cover" ? "cover" : "") + '" data-idx="' + idx + '"></section>');
+  function buildCard(c, idx, meta) {
+    var card = el('<section class="card ' + (meta.isCover ? "cover" : "") + '" data-idx="' + idx + '"></section>');
     var inner = el('<div class="card-inner"></div>');
+    var pass = el('<div class="pass"></div>');
 
-    // media
+    // ---- matted photo ----
     if (c.image && c.image.url) {
       var hasGallery = Array.isArray(c.images) && c.images.length > 0;
       var allImgs = [c.image].concat(hasGallery ? c.images : []);
-      var media = el('<div class="media"></div>');
-      var img = el('<img src="' + esc(c.image.url) + '" alt="' + esc(c.image.alt || "") + '" loading="lazy" />');
-      media.appendChild(img);
-      if (c.image.credit) media.appendChild(el('<div class="credit">' + esc(c.image.credit) + "</div>"));
+      var photo = el('<div class="photo' + (hasGallery ? " zoom" : "") + '"></div>');
+      photo.appendChild(el('<img src="' + esc(c.image.url) + '" alt="' + esc(c.image.alt || "") + '" loading="lazy" />'));
+      var stubLabel = meta.isCover ? "" : (c.type === "info" ? "NOTE" : "STOP " + pad(meta.stopNo));
+      if (stubLabel) photo.appendChild(el('<div class="stub">' + esc(stubLabel) + "</div>"));
+      if (c.image.credit) photo.appendChild(el('<div class="credit">' + esc(c.image.credit) + "</div>"));
       if (hasGallery) {
-        media.appendChild(el('<div class="gallery-badge">▣ ' + (allImgs.length) + "</div>"));
-        media.style.cursor = "zoom-in";
-        media.addEventListener("click", function () { openLightbox(allImgs, 0); });
+        photo.appendChild(el('<div class="gallery-badge">▣ ' + allImgs.length + "</div>"));
+        photo.addEventListener("click", function () { openLightbox(allImgs, 0); });
       }
-      inner.appendChild(media);
+      pass.appendChild(photo);
     }
 
-    var body = el('<div class="body"></div>');
+    // ---- body ----
+    var body = el('<div class="stub-body"></div>');
+
+    if (meta.isCover && meta.stopTotal > 0) {
+      body.appendChild(el('<div class="stamp">' + meta.stopTotal + (meta.stopTotal === 1 ? " STOP" : " STOPS") + "</div>"));
+    }
 
     if (c.kicker || c.time) {
       body.appendChild(el(
-        '<div class="kicker">' + (c.kicker ? esc(c.kicker) : "") +
+        '<div class="gate">' + (c.kicker ? '<span class="glabel">' + esc(c.kicker) + "</span>" : "") +
         (c.time ? '<span class="time">' + esc(c.time) + "</span>" : "") + "</div>"
       ));
     }
@@ -152,25 +183,27 @@
 
     if (c.location && (c.location.mapsUrl || c.location.name)) {
       var L = c.location;
-      var href = L.mapsUrl || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(L.name + " " + (L.address || "")));
+      var href = L.mapsUrl || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((L.name || "") + " " + (L.address || "")));
       body.appendChild(el(
         '<a class="loc" href="' + esc(href) + '" target="_blank" rel="noopener">' +
-        '<span class="pin">📍</span>' +
-        '<span class="loc-text"><div class="loc-name">' + esc(L.name || "View on map") + "</div>" +
+        '<span class="pin">✦</span>' +
+        '<span class="loctext"><div class="loc-name">' + esc(L.name || "View on map") + "</div>" +
         (L.address ? '<div class="loc-addr">' + esc(L.address) + "</div>" : "") + "</span>" +
-        '<span class="chev">›</span></a>'
+        '<span class="map">MAP ↗</span></a>'
       ));
     }
 
-    (c.sections || []).forEach(function (s) {
-      if (!s || !s.body) return;
-      var det = el('<details class="section"' + (s.open ? " open" : "") + "></details>");
-      det.appendChild(el(
-        '<summary>' + esc(s.label || "Details") + '<span class="tw">›</span></summary>'
-      ));
-      det.appendChild(el('<div class="section-body">' + esc(s.body) + "</div>"));
-      body.appendChild(det);
-    });
+    var secs = (c.sections || []).filter(function (s) { return s && s.body; });
+    if (secs.length) {
+      var sections = el('<div class="sections"></div>');
+      secs.forEach(function (s) {
+        var det = el('<details class="section"' + (s.open ? " open" : "") + "></details>");
+        det.appendChild(el('<summary>' + esc(s.label || "Details") + '<span class="tw">+</span></summary>'));
+        det.appendChild(el('<div class="section-body">' + esc(s.body) + "</div>"));
+        sections.appendChild(det);
+      });
+      body.appendChild(sections);
+    }
 
     if (Array.isArray(c.links) && c.links.length) {
       var links = el('<div class="links"></div>');
@@ -180,12 +213,21 @@
       body.appendChild(links);
     }
 
-    inner.appendChild(body);
-
-    if (c.embed && c.embed.url) {
-      inner.appendChild(el('<div class="embed"><iframe src="' + esc(c.embed.url) + '" allowfullscreen loading="lazy"></iframe></div>'));
+    if (meta.isCover) {
+      body.appendChild(el(
+        '<div class="covermeta"><div class="barcode"></div>' +
+        '<div class="board"><span>SEQ ' + pad(idx + 1) + "00</span>" +
+        '<span class="go">SWIPE TO BOARD →</span></div></div>'
+      ));
     }
 
+    pass.appendChild(body);
+
+    if (c.embed && c.embed.url) {
+      pass.appendChild(el('<div class="embed"><iframe src="' + esc(c.embed.url) + '" allowfullscreen loading="lazy"></iframe></div>'));
+    }
+
+    inner.appendChild(pass);
     card.appendChild(inner);
     return card;
   }

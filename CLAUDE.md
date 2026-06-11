@@ -12,6 +12,19 @@ The user pastes a plan and says *"build a Jaunt for this."* Your job is to (1) s
 - **No hosted assets.** Images/videos are **links/embeds only** (Wikimedia, official sites, Unsplash, YouTube, Google Maps). Never download or commit binary media.
 - **Author-time enrichment.** Resolve all map links and image URLs *now*, at generation time, and bake them into the JSON. The page fetches nothing live (no API keys, no CORS).
 
+## Design language ("Boarding Pass")
+
+The shared skin (`app.css` + `app.js`) styles **every** deck as a *boarding pass*: a warm bone card ("the pass") on a dark aviation-ink background, with monospace gate/time codes, a rubber-stamp accent, and a barcode. You never style decks yourself — but author the JSON to play to it:
+
+- **Palette is fixed in the renderer.** Ink background `#0c1016`, bone pass `#f1e9da`, ink text `#1c1a16`. Only `theme.accent` (and, rarely, `theme.bg`) are yours to set per deck.
+- **Type** is Space Grotesk (titles) + IBM Plex Mono (labels/times/codes), loaded by the stylesheet — nothing to do.
+- **Each card is a pass:** matted photo up top, then `kicker` → gate label, `title`, `summary`, `location` as a "field" row, `sections`, `links`. The cover automatically gets a derived "N STOPS" stamp + barcode + "SWIPE TO BOARD".
+- **Photos carry the whole look.** The matted frame makes imagery central, so give **every** card a real, well-cropped, roughly-landscape `image`. A missing or ugly photo is the fastest way to break the aesthetic — this matters more here than in a plainer theme.
+- **`kicker`** becomes a short uppercase mono gate label (`DAY 1 · THU`). **`time`** becomes a compact boxed mono tag (`12:00 PM`, not a range). Keep both terse so they don't wrap.
+
+### Accent
+`theme.accent` colours the stamp, gate label, link pills, progress bar, and map pin — over **both** bone and ink. Pick a **saturated mid-tone** hue that reads on both: a confident red, orange, teal, blue, or green. Avoid pale pastels, near-whites, and very dark colours. Default when unset: `#cf3f2c` (stamp red).
+
 ## UX model (locked decisions)
 
 - **Between cards:** horizontal swipe / tap-edges / arrow keys (Stories/Tinder model).
@@ -77,14 +90,14 @@ python3 -c "import json;d=json.load(open('data/<slug>.json'));[print(i['url']) f
 `https://commons.wikimedia.org/wiki/Special:FilePath/<File_Name>.jpg?width=1100`
 Don't hotlink the *original* (`/commons/x/xx/<file>`) — those can be 5–15 MB. To find a good `<File_Name>`, fetch the relevant Wikipedia article and read its lead-image filename.
 
-**Source-specific image grabbing:** many restaurant sites have no `og:image`; pull a real photo URL from the page body (Squarespace/`images.squarespace-cdn.com`, WordPress `/wp-content/uploads/…`, etc.). For venues with no usable photo (and where you won't ask the user), use a flagged placeholder: `https://placehold.co/1000x1100/1d1d27/<accent-hex>/png?text=<Name>` — it renders cleanly and signals "swap me." Always list which images are placeholders/representative in your handoff.
+**Source-specific image grabbing:** many restaurant sites have no `og:image`; pull a real photo URL from the page body (Squarespace/`images.squarespace-cdn.com`, WordPress `/wp-content/uploads/…`, etc.). For venues with no usable photo (and where you won't ask the user), use a flagged placeholder that matches the pass: `https://placehold.co/1000x1100/e7dcc6/5c564a/png?text=<Name>` — warm kraft on the bone palette, reads as intentional and signals "swap me." Always list which images are placeholders/representative in your handoff.
 
 ## The generation workflow (run this when asked to build a Jaunt)
 
 1. **Read the plan. Resolve problems first.** Flag and fix: missing dates/times, contradictions (double-booked slots, impossible travel times), ambiguous places ("the museum" → which one), gaps. Ask the user only about things you genuinely can't resolve; make sensible assumptions otherwise and **list them**.
 2. **Enrich every proper noun** (venue, restaurant, landmark, event) that lacks a link: search the web for the official page, a Google Maps link, and a representative image URL. Use your web tools.
 3. **Shape into cards.** Cover card first, then one card per stop/event in chronological order. Apply the overflow rule. Put must-know info in `summary` + an `open: true` "Details" section; bury the rest in collapsed sections.
-4. **Pick an accent color** that fits the trip's vibe.
+4. **Pick an accent color** that fits the trip's vibe — a saturated mid-tone that reads on both the bone pass and the ink background (see *Design language → Accent*).
 5. **Write `data/<slug>.json`** and **add an entry to `data/index.json`** (slug, title, subtitle, a `cover` thumbnail URL).
 6. **Validate** the JSON (`python3 -m json.tool data/<slug>.json`), confirm the slug matches the filename, and **verify every image URL is HTTP 200** (see the image-check loop above).
 7. **Build the share stubs:** `node tools/build-stubs.mjs` — regenerates `p/<slug>/index.html` for every deck (the unfurlable share pages). Always run this after adding/editing a deck, and commit the `p/` output.

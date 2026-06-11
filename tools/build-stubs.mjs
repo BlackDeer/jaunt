@@ -44,7 +44,7 @@ function stub(deck) {
   const desc = deck.subtitle || "An itinerary, as swipeable cards.";
   const cover = coverOf(deck);
   const url = `${SITE_ORIGIN}/p/${deck.slug}/`;
-  const accent = (deck.theme && deck.theme.accent) || "#2ea3e0";
+  const accent = (deck.theme && deck.theme.accent) || "#cf3f2c";
   const img = cover
     ? `\n  <meta property="og:image" content="${esc(cover)}" />\n  <meta name="twitter:image" content="${esc(cover)}" />`
     : "";
@@ -66,6 +66,8 @@ function stub(deck) {
   <meta name="twitter:description" content="${esc(desc)}" />
   <meta name="theme-color" content="${esc(accent)}" />
   <link rel="icon" href="${ICON}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="../../app.css" />
   <script>window.JAUNT_SLUG=${JSON.stringify(deck.slug)};window.JAUNT_BASE="../../";</script>
 </head>

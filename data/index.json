@@ -1,0 +1,10 @@
+{
+  "decks": [
+    {
+      "slug": "sample-chicago",
+      "title": "Chicago Weekend",
+      "subtitle": "A sample Jaunt · 2 days",
+      "cover": "https://picsum.photos/seed/chicago-skyline/600/400"
+    }
+  ]
+}

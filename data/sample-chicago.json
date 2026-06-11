@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "slug": "sample-chicago",
+  "title": "Chicago Weekend",
+  "subtitle": "A sample Jaunt · 2 days",
+  "theme": { "accent": "#e0613a" },
+  "cards": [
+    {
+      "id": "cover",
+      "type": "cover",
+      "kicker": "Sample itinerary",
+      "title": "Chicago Weekend",
+      "subtitle": "Two days, deep dish, and a movie",
+      "image": {
+        "url": "https://picsum.photos/seed/chicago-skyline/1000/1400",
+        "alt": "Chicago skyline at dusk",
+        "credit": "Placeholder image"
+      },
+      "summary": "Swipe ▶ to move between cards. Scroll ↕ within a card for more.",
+      "sections": []
+    },
+    {
+      "id": "movies-thu",
+      "type": "stop",
+      "kicker": "Thursday · Day 1",
+      "time": "12:00 PM",
+      "title": "Movie @ AMC River North",
+      "summary": "Kick off the trip with a matinee.",
+      "image": {
+        "url": "https://picsum.photos/seed/amc-river-north/1000/1100",
+        "alt": "AMC River North theater exterior"
+      },
+      "images": [
+        { "url": "https://picsum.photos/seed/amc-lobby/1000/1100", "alt": "Theater lobby" },
+        { "url": "https://picsum.photos/seed/amc-screen/1000/1100", "alt": "Auditorium" }
+      ],
+      "location": {
+        "name": "AMC River North 21",
+        "address": "322 E Illinois St, Chicago, IL 60611",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=AMC%20River%20North%2021%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Matinee showing — grab tickets online beforehand. Recliner seating, so pick seats early on weekends." },
+        { "label": "Logistics", "body": "~10 min walk from the Grand Red Line stop. Validated parking in the building if driving." }
+      ],
+      "links": [
+        { "label": "Showtimes", "url": "https://www.amctheatres.com/movie-theatres/chicago/amc-river-north-21" }
+      ]
+    },
+    {
+      "id": "deep-dish",
+      "type": "stop",
+      "kicker": "Thursday · Day 1",
+      "time": "7:00 PM",
+      "title": "Deep Dish @ Lou Malnati's",
+      "summary": "The classic Chicago-style pizza dinner.",
+      "image": {
+        "url": "https://picsum.photos/seed/deep-dish/1000/1100",
+        "alt": "Chicago deep dish pizza"
+      },
+      "location": {
+        "name": "Lou Malnati's Pizzeria (River North)",
+        "address": "439 N Wells St, Chicago, IL 60654",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Lou%20Malnati%27s%20River%20North%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Deep dish takes ~45 min to bake — order the moment you sit down, or call ahead. Get the Lou (spinach + 3 cheeses) and a sausage." },
+        { "label": "Notes", "body": "No reservations; expect a wait on weekends. Cash-friendly." }
+      ]
+    },
+    {
+      "id": "bean",
+      "type": "stop",
+      "kicker": "Friday · Day 2",
+      "time": "10:00 AM",
+      "title": "Cloud Gate (The Bean)",
+      "summary": "Obligatory reflective selfie in Millennium Park.",
+      "image": {
+        "url": "https://picsum.photos/seed/cloud-gate/1000/1100",
+        "alt": "Cloud Gate sculpture in Millennium Park"
+      },
+      "location": {
+        "name": "Cloud Gate, Millennium Park",
+        "address": "201 E Randolph St, Chicago, IL 60602",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Cloud%20Gate%20Millennium%20Park%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Free and open daily. Go early to beat the crowds for photos. Combine with a walk through Lurie Garden next door." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "slug": "chicago-guys-trip",
+  "title": "Chicago Guys' Trip",
+  "subtitle": "June 11–14, 2026 · 4 days",
+  "theme": { "accent": "#2ea3e0" },
+  "cards": [
+    {
+      "id": "cover",
+      "type": "cover",
+      "kicker": "The plan",
+      "title": "Chicago Guys' Trip",
+      "subtitle": "Thu Jun 11 – Sun Jun 14, 2026",
+      "image": {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicago_Skyline_in_April_2024_b.jpg?width=1100",
+        "alt": "Chicago skyline",
+        "credit": "Wikimedia Commons"
+      },
+      "summary": "Swipe ▶ between cards · scroll ↕ within a card · tap a 📍 for the map.",
+      "sections": [
+        { "label": "Already booked ✓", "open": true, "body": "• Westin Michigan Ave — Jun 12–14\n• Architecture river cruise — Fri 12:30 PM\n• iO Theater (Improvised Shakespeare) — Fri 7:30 PM" },
+        { "label": "Still to reserve ⚠️", "body": "• Café Ba-Ba-Reeba (Fri dinner)\n• BOKA (Sat dinner)\n• Sweathouz (only if we do Sat Option B)" }
+      ]
+    },
+    {
+      "id": "thu-arrival",
+      "type": "stop",
+      "kicker": "Thu Jun 11 · Evening",
+      "time": "6:30 PM",
+      "title": "Arrive + settle in",
+      "summary": "Land, drop bags at Yohan's place in Avondale, regroup, then head out for dinner.",
+      "sections": [
+        { "label": "Details", "open": true, "body": "Crashing at Yohan's tonight (and stashing luggage here again on Sunday before we leave). Drop bags, freshen up, then roll to dinner." }
+      ]
+    },
+    {
+      "id": "thu-dinner",
+      "type": "stop",
+      "kicker": "Thu Jun 11 · Dinner",
+      "title": "Dinner — pick one",
+      "summary": "Three north-side spots. Heads up: only Pizza Lobo is near Yohan's (Logan Square) — the other two are up in Andersonville, ~15 min further.",
+      "image": {
+        "url": "https://images.squarespace-cdn.com/content/v1/630d4fcc4dd84c42357c7ead/e954a2b0-57f0-4c21-931e-7a343e5432e1/Pizza.png",
+        "alt": "Pizza from Lobo"
+      },
+      "images": [
+        { "url": "https://www.littlebadwolfchicago.com/wp-content/uploads/2020/07/photo-lbw-1a.jpg", "alt": "Little Bad Wolf" },
+        { "url": "https://hopleafbar.com/wp-content/uploads/2018/04/FrontRoomClassic_36755_1000px.jpg", "alt": "Hopleaf front room" }
+      ],
+      "sections": [
+        { "label": "Pizza Lobo — Logan Square (closest)", "open": true, "body": "Casual pizza + cocktails, ~10 min from Yohan's. Easy, no-fuss option for night one.\n3000 W Fullerton Ave" },
+        { "label": "Little Bad Wolf — Andersonville", "body": "Burgers, baos, tacos and strong cocktails in a dark, cozy room. ~15 min north.\n1541 W Bryn Mawr Ave" },
+        { "label": "Hopleaf — Andersonville", "body": "Belgian beer mecca + gastropub (mussels & frites, the famous CB&J). Right by Little Bad Wolf.\n5148 N Clark St" }
+      ],
+      "links": [
+        { "label": "📍 Pizza Lobo", "url": "https://www.google.com/maps/search/?api=1&query=Pizza%20Lobo%203000%20W%20Fullerton%20Ave%20Chicago" },
+        { "label": "📍 Little Bad Wolf", "url": "https://www.google.com/maps/search/?api=1&query=Little%20Bad%20Wolf%201541%20W%20Bryn%20Mawr%20Ave%20Chicago" },
+        { "label": "📍 Hopleaf", "url": "https://www.google.com/maps/search/?api=1&query=Hopleaf%205148%20N%20Clark%20St%20Chicago" }
+      ]
+    },
+    {
+      "id": "fri-brunch",
+      "type": "stop",
+      "kicker": "Fri Jun 12 · 9–10 AM",
+      "title": "Brunch — Tweet or Pancake Café",
+      "summary": "Both up north near Yohan's, easy to hit before we head downtown to drop bags.",
+      "image": {
+        "url": "https://images.squarespace-cdn.com/content/v1/5f98312993cd044dcd33c5cf/5f0b8bd0-8731-4622-a4fc-f4da88fe24ca/Tweet+Cor.jpg",
+        "alt": "Tweet restaurant, Uptown"
+      },
+      "sections": [
+        { "label": "Tweet — Uptown", "open": true, "body": "Quirky, beloved New American brunch (cash-friendly, BYO from Big Chicks next door). Opens 9 AM.\n5020 N Sheridan Rd" },
+        { "label": "Pancake Café — Lakeview", "body": "Family-run, big homestyle breakfast plates. Opens 8 AM, so the earlier option if we're moving.\n3805 N Broadway" }
+      ],
+      "links": [
+        { "label": "📍 Tweet", "url": "https://www.google.com/maps/search/?api=1&query=Tweet%205020%20N%20Sheridan%20Rd%20Chicago" },
+        { "label": "📍 Pancake Café", "url": "https://www.google.com/maps/search/?api=1&query=Pancake%20Cafe%203805%20N%20Broadway%20Chicago" }
+      ]
+    },
+    {
+      "id": "fri-westin",
+      "type": "stop",
+      "kicker": "Fri Jun 12 · Bag drop + check-in",
+      "time": "Drop ~11 AM · Room 2–4 PM",
+      "title": "The Westin Michigan Avenue",
+      "summary": "Stash the bags before the boat tour, do the real check-in after lunch. Booked Jun 12–14.",
+      "image": {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20070513_Magnificent_Mile.JPG?width=1100",
+        "alt": "Magnificent Mile, North Michigan Avenue",
+        "credit": "Representative — Mag Mile"
+      },
+      "location": {
+        "name": "The Westin Michigan Avenue",
+        "address": "909 N Michigan Ave, Chicago, IL 60611",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Westin%20Michigan%20Avenue%20909%20N%20Michigan%20Ave%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Front desk will hold luggage before the room's ready — drop and go. Rooms open 2–4 PM; circle back to check in and chill after the cruise + lunch." },
+        { "label": "Location", "body": "Right on the Magnificent Mile, ~10 min from the river cruise dock. Easy walk to dinner-zone via cab/L." }
+      ]
+    },
+    {
+      "id": "fri-cruise",
+      "type": "stop",
+      "kicker": "Fri Jun 12 · Boarding 12:30 PM",
+      "time": "Sail 1–2 PM",
+      "title": "Architecture River Cruise",
+      "summary": "Chicago's First Lady (Chicago Architecture Center cruise). Booked ✓. Board at the Riverwalk, SE corner of Michigan Ave & Wacker.",
+      "image": {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicago_Riverwalk_(51556708640).jpg?width=1100",
+        "alt": "Chicago River and downtown architecture from the Riverwalk",
+        "credit": "Wikimedia Commons"
+      },
+      "location": {
+        "name": "Chicago's First Lady — Riverwalk dock",
+        "address": "112 E Wacker Dr (SE corner, Michigan Ave & Wacker)",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Chicago%27s%20First%20Lady%20Cruises%20112%20E%20Wacker%20Dr%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Get there ~15 min early for boarding. Walk down to the lower-level Riverwalk on the southeast side of the Michigan Ave bridge. Grab a drink onboard." },
+        { "label": "After: light lunch (2 PM)", "body": "Cruise ends right on the Riverwalk — easy to grab a light lunch nearby (Riverwalk patios, or anything along Mag Mile) before heading back to check in." }
+      ],
+      "links": [
+        { "label": "Cruise info", "url": "https://cruisechicago.com" }
+      ]
+    },
+    {
+      "id": "fri-dinner",
+      "type": "stop",
+      "kicker": "Fri Jun 12 · Dinner",
+      "time": "6:00 PM",
+      "title": "Café Ba-Ba-Reeba",
+      "summary": "Spanish tapas, paella and sangria in Lincoln Park. ⚠️ Needs a reservation — book it now.",
+      "image": {
+        "url": "https://storage.googleapis.com/cafebabareeba_bucket/wp-content/themes/lettuce/images/Paella-filled.png",
+        "alt": "Paella at Café Ba-Ba-Reeba"
+      },
+      "location": {
+        "name": "Café Ba-Ba-Reeba",
+        "address": "2024 N Halsted St, Chicago, IL 60614",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Cafe%20Ba-Ba-Reeba%202024%20N%20Halsted%20St%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Chicago's original tapas spot (since 1985). Order a spread of hot + cold tapas and at least one paella for the table; pitchers of sangria are the move." },
+        { "label": "Logistics", "body": "Lincoln Park — ~10 min from the iO Theater right after, so timing lines up for the 7:30 show." }
+      ],
+      "links": [
+        { "label": "Reserve (OpenTable)", "url": "https://www.opentable.com/cafe-ba-ba-reeba-chicago" }
+      ]
+    },
+    {
+      "id": "fri-io",
+      "type": "stop",
+      "kicker": "Fri Jun 12 · Show",
+      "time": "7:30–10:00 PM",
+      "title": "iO Theater — Improvised Shakespeare",
+      "summary": "A full Shakespearean play, improvised from one audience suggestion. Booked ✓.",
+      "image": {
+        "url": "https://placehold.co/1000x1100/1d1d27/2ea3e0/png?text=iO+Theater%0A(add+photo)",
+        "alt": "iO Theater — photo to be added"
+      },
+      "location": {
+        "name": "iO Theater",
+        "address": "1501 N Kingsbury St, Chicago, IL 60642",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=iO%20Theater%201501%20N%20Kingsbury%20St%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Arrive a bit early — there's a bar and rooftop. ~10 min from dinner, near Goose Island." }
+      ],
+      "links": [
+        { "label": "iO Theater", "url": "https://ioimprov.com" }
+      ]
+    },
+    {
+      "id": "sat-opt-a",
+      "type": "stop",
+      "kicker": "Sat Jun 13 · Option A",
+      "time": "~10 AM – 4 PM",
+      "title": "Indiana Dunes (rental car)",
+      "summary": "The leaning option. Rent a car, drive ~1 hr to the Lake Michigan shoreline for dunes + beach.",
+      "image": {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Indiana_Dunes_National_Lakeshore,_Michigan_City,_Indiana,_Estados_Unidos,_2012-10-20,_DD_03.jpg?width=1100",
+        "alt": "Indiana Dunes National Park on Lake Michigan",
+        "credit": "Wikimedia Commons"
+      },
+      "location": {
+        "name": "Indiana Dunes National Park",
+        "address": "1215 N State Road 49, Porter, IN (visitor center)",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Indiana%20Dunes%20National%20Park%20Visitor%20Center"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Big dunes right on Lake Michigan. Do the 3 Dune Challenge (1.5 mi, 3 steep dunes) then hang on the beach. Pack swimsuits + towels." },
+        { "label": "Logistics", "body": "Need a rental car — ~50 mi / 1 hr each way. There's a small park entrance fee. Leave by ~9–9:30 to be set up by 10, back by ~4–5 for dinner." }
+      ]
+    },
+    {
+      "id": "sat-opt-b",
+      "type": "stop",
+      "kicker": "Sat Jun 13 · Option B",
+      "title": "City day: beach → blues → sauna",
+      "summary": "The no-car alternative: lakefront, live blues, and a recovery session. ⚠️ Sweathouz needs a 5 PM booking.",
+      "image": {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sauna_2.jpg?width=1100",
+        "alt": "Sauna interior",
+        "credit": "Representative — sauna"
+      },
+      "sections": [
+        { "label": "Beach", "open": true, "body": "Walk/cab to the lakefront — North Avenue Beach is the classic (volleyball, the boathouse bar)." },
+        { "label": "Blues", "body": "Lincoln Park has two legendary clubs across the street from each other: Kingston Mines and B.L.U.E.S. on Halsted. Afternoon/early sets, then dinner." },
+        { "label": "Sweathouz (book 5 PM ⚠️)", "body": "Private infrared sauna + cold plunge to reset. Old Town location: 1439 N Wells St. Reserve the 5 PM slot ahead of time." }
+      ],
+      "links": [
+        { "label": "📍 North Ave Beach", "url": "https://www.google.com/maps/search/?api=1&query=North%20Avenue%20Beach%20Chicago" },
+        { "label": "📍 Kingston Mines", "url": "https://www.google.com/maps/search/?api=1&query=Kingston%20Mines%202548%20N%20Halsted%20Chicago" },
+        { "label": "Book Sweathouz", "url": "https://sweathouz.com/old-town-book-now/" }
+      ]
+    },
+    {
+      "id": "sat-dinner",
+      "type": "stop",
+      "kicker": "Sat Jun 13 · Dinner",
+      "time": "~7:00 PM",
+      "title": "BOKA",
+      "summary": "Michelin-starred New American in Lincoln Park — the big dinner of the trip. ⚠️ Reserve well ahead.",
+      "image": {
+        "url": "https://placehold.co/1000x1100/1d1d27/2ea3e0/png?text=BOKA%0A(add+photo)",
+        "alt": "BOKA — photo to be added"
+      },
+      "location": {
+        "name": "BOKA",
+        "address": "1729 N Halsted St, Chicago, IL 60614",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Boka%201729%20N%20Halsted%20St%20Chicago"
+      },
+      "sections": [
+        { "label": "Details", "open": true, "body": "Elevated, seasonal, beautifully plated — dress it up a notch. In the theater district near Steppenwolf. Book as far ahead as you can; prime times go fast." }
+      ],
+      "links": [
+        { "label": "Reserve", "url": "https://www.bokachicago.com/reservations" }
+      ]
+    },
+    {
+      "id": "sun-out",
+      "type": "stop",
+      "kicker": "Sun Jun 14 · Wind down",
+      "time": "Checkout 11 AM · Out by 3 PM",
+      "title": "Last brunch + checkout",
+      "summary": "One more brunch, grab the bags, head out.",
+      "location": {
+        "name": "The Westin Michigan Avenue (checkout)",
+        "address": "909 N Michigan Ave, Chicago, IL 60611",
+        "mapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Westin%20Michigan%20Avenue%20909%20N%20Michigan%20Ave%20Chicago"
+      },
+      "sections": [
+        { "label": "Plan", "open": true, "body": "Ask the front desk Saturday night about a late checkout. Sunday: brunch near the hotel (River North / Gold Coast has tons of options), check out, swing by Yohan's for any stashed luggage, and roll out by 3 PM." }
+      ]
+    }
+  ]
+}

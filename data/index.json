@@ -1,6 +1,12 @@
 {
   "decks": [
     {
+      "slug": "chicago-guys-trip",
+      "title": "Chicago Guys' Trip",
+      "subtitle": "June 11–14, 2026 · 4 days",
+      "cover": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicago_Skyline_in_April_2024_b.jpg?width=600"
+    },
+    {
       "slug": "sample-chicago",
       "title": "Chicago Weekend",
       "subtitle": "A sample Jaunt · 2 days",

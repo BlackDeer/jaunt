@@ -67,6 +67,18 @@ If you have a specific place/CID URL from search, use that instead.
 ### Images (links only)
 Priority order: official venue/event page image → Wikimedia Commons → a reputable stock/CDN image that clearly matches. **Never invent a URL** — if you can't verify a real image for a specific venue, either use a clearly-generic representative image **and note it**, or **ask the user** to supply one. Broken `<img>` links are worse than asking.
 
+**Always verify every image URL resolves before shipping** (HTTP 200). A quick loop:
+```bash
+python3 -c "import json;d=json.load(open('data/<slug>.json'));[print(i['url']) for c in d['cards'] for i in ([c.get('image')] if c.get('image') else [])+c.get('images',[])]" \
+ | while read u; do echo "$(curl -s -o /dev/null -w '%{http_code}' -A 'Mozilla/5.0' -L "$u")  $u"; done
+```
+
+**Wikimedia gotcha:** the `upload.wikimedia.org/.../thumb/.../NNNpx-<file>` thumbnail path is currently returning HTTP 400 from this environment. Use the resize redirect instead — small, reliable, CORS-open:
+`https://commons.wikimedia.org/wiki/Special:FilePath/<File_Name>.jpg?width=1100`
+Don't hotlink the *original* (`/commons/x/xx/<file>`) — those can be 5–15 MB. To find a good `<File_Name>`, fetch the relevant Wikipedia article and read its lead-image filename.
+
+**Source-specific image grabbing:** many restaurant sites have no `og:image`; pull a real photo URL from the page body (Squarespace/`images.squarespace-cdn.com`, WordPress `/wp-content/uploads/…`, etc.). For venues with no usable photo (and where you won't ask the user), use a flagged placeholder: `https://placehold.co/1000x1100/1d1d27/<accent-hex>/png?text=<Name>` — it renders cleanly and signals "swap me." Always list which images are placeholders/representative in your handoff.
+
 ## The generation workflow (run this when asked to build a Jaunt)
 
 1. **Read the plan. Resolve problems first.** Flag and fix: missing dates/times, contradictions (double-booked slots, impossible travel times), ambiguous places ("the museum" → which one), gaps. Ask the user only about things you genuinely can't resolve; make sensible assumptions otherwise and **list them**.

@@ -84,12 +84,16 @@
     });
     app.appendChild(deck);
 
-    var left = el('<div class="tapzone left"></div>');
-    var right = el('<div class="tapzone right"></div>');
-    left.addEventListener("click", function () { go(-1); });
-    right.addEventListener("click", function () { go(1); });
-    app.appendChild(left);
-    app.appendChild(right);
+    // Tap the left/right third to advance. Handled on the deck itself (no overlay
+    // elements) so they never block the native horizontal swipe. A click only fires
+    // on a real tap — a drag/swipe scrolls the deck and never triggers it.
+    deck.addEventListener("click", function (e) {
+      if (e.target.closest("a, button, summary, details, .photo, .loc, .links, .embed")) return;
+      var r = deck.getBoundingClientRect();
+      var x = e.clientX - r.left;
+      if (x < r.width * 0.3) go(-1);
+      else if (x > r.width * 0.7) go(1);
+    });
 
     var hint = el('<div class="nav-hint">tap or swipe → · scroll ↓ for more</div>');
     app.appendChild(hint);
